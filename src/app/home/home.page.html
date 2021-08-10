@@ -1,20 +1,124 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Toy Robot Simulator
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-grid style="padding: 10px;">
+
+    <ion-row
+      *ngFor="let y of dimIdxY"
+      style="text-align: center;"
+      class="vertical-center">
+
+      <!-- display Y indices -->
+      <ion-col>{{y}}</ion-col>
+
+      <ion-col
+        *ngFor="let x of dimIdxX"
+        style="height: 50px; border: 1px solid #000;">
+
+        <img
+          src="assets/spaceship.jpg"
+          *ngIf="x == currState.x && y == currState.y"
+          style="height: 40px; width: 40px;"
+          [ngStyle]="{'transform': 'rotate(' + degree + ')'}">
+
+      </ion-col>
+
+    </ion-row>
+
+    <!-- display X indices -->
+    <ion-row>
+
+      <ion-col></ion-col>
+
+      <ion-col
+        *ngFor="let x of dimIdxX"
+        style="text-align: center;">
+          {{x}}
+      </ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+
+  <ion-row style="justify-content: center;">
+
+    <ion-button (click)="rotateRobot('left')">Left</ion-button>
+
+    <ion-button (click)="rotateRobot('right')">Right</ion-button>
+
+    <ion-button (click)="move()">Move</ion-button>
+
+    <ion-button (click)="report()">Report</ion-button>
+
+  </ion-row>
+
+  <ion-card style="padding: 15px; border-radius: 10px;">
+
+    <ion-row class="vertical-center">
+
+      <ion-col>
+
+        <ion-item>
+
+          <ion-label>X</ion-label>
+
+          <ion-input
+            type="number"
+            [(ngModel)]="xLoc"></ion-input>
+
+        </ion-item>
+
+      </ion-col>
+
+      <ion-col>
+
+        <ion-item>
+
+          <ion-label>Y</ion-label>
+
+          <ion-input
+            type="number"
+            [(ngModel)]="yLoc"></ion-input>
+
+        </ion-item>
+
+      </ion-col>
+
+    </ion-row>
+
+    <ion-item lines="none">
+
+      <ion-label>Face Direction</ion-label>
+
+      <ion-select
+        placeholder="Select"
+        [(ngModel)]="placeDirection">
+
+        <ion-select-option [value]="0">NORTH</ion-select-option>
+
+        <ion-select-option [value]="1">EAST</ion-select-option>
+
+        <ion-select-option [value]="2">SOUTH</ion-select-option>
+
+        <ion-select-option [value]="3">WEST</ion-select-option>
+
+      </ion-select>
+
+    </ion-item>
+
+    <ion-row style="justify-content: center;">
+
+      <ion-button (click)="place()">Place</ion-button>
+
+    </ion-row>
+
+  </ion-card>
+
 </ion-content>
